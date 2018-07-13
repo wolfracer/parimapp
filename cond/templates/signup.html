@@ -1,0 +1,16 @@
+<!-- templates/signup.html -->
+{% extends 'bootstrap_base.html' %}
+{% load bootstrap %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+  <h2>Sign up</h2>
+  <form role="form" method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+     <div class="form-group">
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </div>
+  </form>
+{% endblock %}
