@@ -1,0 +1,32 @@
+{% extends 'bootstrap_base.html' %}
+{% block title %}Login{% endblock %}
+{% block body %}
+{% load bootstrap %}
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Brand</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+
+                    {% block navbar_collapse_nav %}{% endblock %}
+
+                </div>
+ </nav>
+<div class="mt-5"></div>
+    <div class="container">
+<h2>Login</h2>
+<form role="form" method="post">
+  {% csrf_token %}
+  {{ form|bootstrap }}
+  <div class="form-group">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+</div>
+    <script src="static/js/jquery.min.js"></script>
+        <script src="static/js/popper.min.js"></script>
+        <script src="static/js/bootstrap.min.js"></script>
+        <script src="static/js/js.cookie.js"></script>
+        <script src="static/js/csrf.js"></script>
+{% endblock %}
