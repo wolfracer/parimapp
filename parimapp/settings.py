@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'cond.apps.CondConfig',
+    'cond',
     'bootstrapform',
     'django_bootstrap_base_template',
     'django.contrib.admin',
