@@ -1,16 +1,15 @@
-<!-- templates/signup.html -->
 {% extends 'base.html' %}
 {% load bootstrap %}
 
-{% block title %}Registro{% endblock %}
+{% block title %}Editar Perfil{% endblock %}
 
 {% block body %}
-  <h2>Registro</h2>
+  <h2>Editar Perfil</h2>
   <form role="form" method="post">
     {% csrf_token %}
     {{ form|bootstrap }}
      <div class="form-group">
-      <button type="submit" class="btn btn-primary">Registrar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
   </form>
 {% endblock %}

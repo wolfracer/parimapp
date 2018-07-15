@@ -1,14 +1,14 @@
 <!-- templates/home.html -->
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Inicio{% endblock %}
 
 {% block body %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-<p><a href="{% url 'logout' %}">logout</a></p>
+  Hola {{ user.username }}!
+<p><a href="{% url 'logout' %}">Cerrar Sesion</a></p>
 {% else %}
   <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
+  <a href="{% url 'login' %}">Iniciar Sesion</a>
 {% endif %}
 {% endblock %}

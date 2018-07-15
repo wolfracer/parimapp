@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Login{% endblock %}
+{% block title %}Iniciar Sesion{% endblock %}
 {% block body %}
 {% load bootstrap %}
     <!--
@@ -17,7 +17,7 @@
 <div class="mt-5"></div>
 -->
     <div class="container">
-<h2>Login</h2>
+<h2>Iniciar Sesion</h2>
 <form role="form" method="post">
   {% csrf_token %}
   {{ form|bootstrap }}
