@@ -2,10 +2,11 @@
 
 # Create your views here.
 # accounts/views.py
-from cond.forms import CustomUserCreationForm, CustomUserChangeForm, EditProfileForm
+from cond.forms import CustomUserCreationForm, CustomUserChangeForm
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from cond.models import User
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -36,3 +37,12 @@ def edit_profile(request):
         form = CustomUserChangeForm(instance=request.user)
         args = {'form': form}
         return render(request, 'edit.html', args)
+
+
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    args = {'user': user}
+    return render(request, 'profile.html', args)

@@ -33,6 +33,11 @@ class CustomUserChangeForm (UserChangeForm):
 
 
         )
+        widgets = {
+            'fecha_nacimiento': forms.DateInput,
+            'password': forms.HiddenInput,
+        }
+
 
 
 

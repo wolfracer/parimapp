@@ -29,13 +29,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="{% url 'home' %}">Inicio</a>
                 </li>
+                {% if user.is_authenticated %}
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="{% url 'profile' %}">Perfil</a>
                 </li>
+                {% endif %}
                 <li>
-                    <a href="#">Overview</a>
+                    <a href="#">Control</a>
                 </li>
                 <li>
                     <a href="#">Events</a>
@@ -43,12 +45,23 @@
                 <li>
                     <a href="#">About</a>
                 </li>
-                <li>
-                    <a href="#">Services</a>
+
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'logout' %}">Cerrar Sesion</a>
                 </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+                    <li>
+                        <a href="{% url 'edit' %}">Editar Perfil</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Iniciar Sesion</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}">Registro</a>
+                    </li>
+                {% endif %}
+
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
