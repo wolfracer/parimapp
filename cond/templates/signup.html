@@ -8,9 +8,16 @@
   <h2>Registro</h2>
   <form role="form" method="post">
     {% csrf_token %}
-    {{ form|bootstrap }}
-     <div class="form-group">
+      <div class="input-group date" data-provide="datepicker">
+          {{ form|bootstrap }}
+          <div class="input-group-addon">
+
+          </div>
+      </div>
+
+      <div class="form-group">
       <button type="submit" class="btn btn-primary">Registrar</button>
     </div>
   </form>
+
 {% endblock %}

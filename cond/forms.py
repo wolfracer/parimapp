@@ -3,16 +3,23 @@ from django import forms
 from django.forms import ModelForm
 
 from cond.models import User
+from bootstrap_datepicker.widgets import DatePicker
 
 
 class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ('cedula', 'email', 'first_name', 'last_name', 'apartament',)
-        widgets = {
-            'fecha_nacimiento': forms.DateInput
+        fields = UserCreationForm.Meta.fields + (
+	        'cedula', 'email', 'first_name', 'last_name', 'apartament', 'fecha_nacimiento',)
+        widgets = {'fecha_nacimiento': DatePicker(options={
+	        "format": "mm/dd/yyyy",
+	        "autoclose": True
         }
+        )
+        }
+
+
         """widgets = {
             'apartment': forms.NumberInput
         }"""
@@ -26,15 +33,21 @@ class CustomUserChangeForm (UserChangeForm):
             'first_name',
             'last_name',
             'email',
+            'apartament',
             'fecha_nacimiento',
             'telefono',
             'cedula',
             'password',
 
 
+
         )
         widgets = {
-            'fecha_nacimiento': forms.DateInput,
+	        'fecha_nacimiento': DatePicker(options={
+		        "format": "mm/dd/yyyy",
+		        "autoclose": True
+	        }
+	        ),
             'password': forms.HiddenInput,
         }
 

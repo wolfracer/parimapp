@@ -5,12 +5,30 @@
 from cond.forms import CustomUserCreationForm, CustomUserChangeForm
 from django.urls import reverse_lazy, reverse
 from django.views import generic
-from cond.models import User
+from cond.models import User, Arduino
+import time, serial
+from django.http import HttpResponse
+# from .tasks import leer_arduino
+from cond.fusioncharts import FusionCharts
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
+
+def data(request):
+	arduino = serial.Serial('COM6', 9600)
+	time.sleep(2)
+
+	lectura_arduino = float(arduino.readline().strip()) * 1000
+	value = Arduino.objects.get(pk=1)
+
+	value.cadena = lectura_arduino
+	value.save()
+	arduino.close()
+	response = "&value=" + str(value.cadena)
+	return HttpResponse(response)
 
 class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
@@ -22,10 +40,11 @@ class EditProfile (LoginRequiredMixin, generic.UpdateView):
     login_url = '/login/'
     model = User
     form_class = CustomUserChangeForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('profile')
     template_name = 'edit.html'
 
-# @login_required()
+
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
@@ -39,6 +58,7 @@ def edit_profile(request):
         return render(request, 'edit.html', args)
 
 
+@login_required
 def view_profile(request, pk=None):
     if pk:
         user = User.objects.get(pk=pk)
@@ -46,3 +66,40 @@ def view_profile(request, pk=None):
         user = request.user
     args = {'user': user}
     return render(request, 'profile.html', args)
+
+
+def arduino_test(request):
+	# leer_arduino(repeat=5)
+	cad = Arduino.objects.get(pk=1)
+
+	return HttpResponse(cad.cadena)
+
+
+@login_required
+def prueba(request):
+	column2d = FusionCharts(
+		'cylinder',
+		'ex1',
+		'600',
+		'400',
+		'chart-1',
+		'json',
+		{
+			"chart": {
+				"caption": "Indicador de Nivel de Agua",
+				"lowerlimit": "0",
+				"upperlimit": "27000",
+				"numbersuffix": "Litros",
+				"plottooltext": "Litros: <b>$dataValue</b>",
+				"theme": "fusion",
+				"dataStreamUrl": "http://localhost:8000/accounts/data/",
+				"refreshInterval": "5",
+				"refreshInstantly": "2",
+				"cylFillColor": "#5188df"
+			},
+			"value": "23"
+		},
+	)
+
+	return render(request, 'arduino.html',
+	              {'output': column2d.render()})

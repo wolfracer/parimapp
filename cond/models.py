@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 # from django.contrib.auth import get_user_model donde se use user, se obtiene con get_user_model
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
+from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 # Se crea el modelo, despues se corre el comando python manage.py makemigratios "nombre del app"
 # por ultimo, python manage.py migrate
@@ -47,19 +45,15 @@ class User  (AbstractUser):
     apellidos = models.CharField(max_length=30)
     email = models.EmailField()"""
     cedula = models.IntegerField()
-    telefono = models.CharField(max_length=20)
+    telefono = PhoneNumberField()
     # user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     # modelo base user de django, tiene nombres correo etc
     apartament = models.ForeignKey(Apartment, on_delete=models.CASCADE)
     fecha_nacimiento = models.DateField(blank=True, null=True)
 
 
-"""@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        User.apartament.save()"""
+class Arduino(models.Model):
+	cadena = models.CharField(max_length=10)
 
-
-"""@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.user.save()"""
+	def __str__(self):
+		return self.cadena

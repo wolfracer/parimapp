@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Arduino prueba{% endblock %}
+{% load static %}
+<script type="text/javascript" src="{% static "fusioncharts/fusioncharts.js" %}"></script>
+<script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.fint.js" %}"></script>
+{% block body %}
+    <h2>Prueba Arduino</h2>
+    <div id="chart-1"></div>
+    <!-- dumping JavaScript code here -->
+    {{ output|safe }}
+
+
+{% endblock %}

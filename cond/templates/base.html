@@ -7,12 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Fabian Cudis">
-    <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+    <title>{% block title %}Parimapp{% endblock %}</title>
     <!-- Bootstrap core CSS -->
     <link href="{% static "cond/css/bootstrap.min.css" %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{% static "cond/css/simple-sidebar.css" %}" rel="stylesheet">
+
+    <script type="text/javascript" src="{% static "cond/fusioncharts/fusioncharts.js" %}"></script>
 
 
 </head>
@@ -25,7 +27,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Start Bootstrap
+                        Parimapp
                     </a>
                 </li>
                 <li>
@@ -35,16 +37,17 @@
                 <li>
                     <a href="{% url 'profile' %}">Perfil</a>
                 </li>
+                    <li>
+                        <a href="{% url 'prueba' %}">Tanque de Agua</a>
+                    </li>
                 {% endif %}
-                <li>
-                    <a href="#">Control</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
+
+                {#                <li>#}
+                {#                    <a href="#">Events</a>#}
+                {#                </li>#}
+                {#                <li>#}
+                {#                    <a href="#">About</a>#}
+                {#                </li>#}
 
                 {% if user.is_authenticated %}
                     <li>
@@ -69,10 +72,10 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <h1>Simple Sidebar</h1>
-                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+                {#                <h1>Simple Sidebar</h1>#}
+                {#                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>#}
+                {#                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>#}
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Desplegar Menu</a>
             </div>
             {% block body %}
 
@@ -93,6 +96,10 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    </script>
+    <script>
+        $('.datepicker').datepicker();
     </script>
 
 </body>

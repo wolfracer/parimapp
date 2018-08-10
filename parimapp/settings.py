@@ -40,11 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'phonenumber_field',
+	'background_task',
+	# 'django_ajax',
+
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.middleware.security.SecurityMiddleware',
+	'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -80,7 +84,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+	'OPTIONS': {
+
+		'timeout': 20
+
+	}
 }
 
 
@@ -109,6 +118,7 @@ AUTH_USER_MODEL = 'cond.User'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Caracas'
+PHONENUMBER_DEFAULT_REGION = 'VE'
 
 USE_I18N = True
 
@@ -123,3 +133,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+BACKGROUND_TASK_RUN_ASYNC = True
