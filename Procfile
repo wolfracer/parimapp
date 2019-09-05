@@ -1,0 +1,1 @@
+web: gunicorn parimapp.wsgi --log-file -
