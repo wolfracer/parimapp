@@ -5,7 +5,7 @@
 from cond.forms import CustomUserCreationForm, CustomUserChangeForm
 from django.urls import reverse_lazy, reverse
 from django.views import generic
-from cond.models import User, Arduino
+from cond.models import User, Arduino, Recibo
 import time, serial
 from django.http import HttpResponse
 # from .tasks import leer_arduino
@@ -73,6 +73,24 @@ def arduino_test(request):
 	cad = Arduino.objects.get(pk=1)
 
 	return HttpResponse(cad.cadena)
+
+
+@login_required
+def recibo(request):
+	item = Recibo.objects.get(user=request.user)
+	args = {'item': item}
+	return (render(request, 'recibo.html', args))
+
+
+# /TODO: Arreglar la vista del PDF.
+def pdf_view(request):
+	url = Recibo.objects.get(user=request.user)
+	with open(url.recibourl, 'r', encoding='utf8', errors='ignore') as pdf:
+		response = HttpResponse(pdf.read(), content_type='application/pdf')
+		response['Content-Disposition'] = 'inline;filename=recibo_test.pdf'
+		return response
+	pdf.closed
+
 
 
 @login_required

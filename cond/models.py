@@ -2,12 +2,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # from django.contrib.auth import get_user_model donde se use user, se obtiene con get_user_model
 from phonenumber_field.modelfields import PhoneNumberField
+
+
 # Create your models here.
-# Se crea el modelo, despues se corre el comando python manage.py makemigratios "nombre del app"
+# Se crea el modelo, despues se corre el comando python manage.py makemigrations "nombre del app"
 # por ultimo, python manage.py migrate
+# Registrar en admin.py cada modelo
 
 
-class Apartment (models.Model):
+class Apartment(models.Model):
     TORRES_CHOICES = (
         (1, '1'),
         (2, '2'),
@@ -38,22 +41,31 @@ class Apartment (models.Model):
         full_apto = self.torres + '-' + self.piso + '-' + self.apto
         return full_apto
 
-class User  (AbstractUser):
+
+class User(AbstractUser):
     """username = models.CharField(max_length=12, unique=True)
     password = models.CharField()
     nombres = models.CharField(max_length=30)
     apellidos = models.CharField(max_length=30)
     email = models.EmailField()"""
-    cedula = models.IntegerField()
-    telefono = PhoneNumberField()
+    cedula = models.IntegerField(null=True)
+    telefono = PhoneNumberField(null=True)
     # user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     # modelo base user de django, tiene nombres correo etc
-    apartament = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    apartament = models.ForeignKey(Apartment, on_delete=models.CASCADE, null=True)
     fecha_nacimiento = models.DateField(blank=True, null=True)
 
 
-class Arduino(models.Model):
-	cadena = models.CharField(max_length=10)
+class Recibo(models.Model):
+    recibourl = models.FilePathField(path='cond/static/cond/recibos')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-	def __str__(self):
-		return self.cadena
+    def __str__(self):
+        return self.recibourl
+
+
+class Arduino(models.Model):
+    cadena = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.cadena

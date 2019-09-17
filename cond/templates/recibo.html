@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Recibo{% endblock %}
+{% load static %}
+
+{% block body %}
+    {# // TODO: recibos personalizados #}
+
+    <embed src="{% url 'pdf' %}" width="600px" height="500px"/>
+    <h1> {{ item.recibourl }}</h1>
+
+{% endblock %}

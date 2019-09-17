@@ -48,7 +48,9 @@
                 {#                <li>#}
                 {#                    <a href="#">About</a>#}
                 {#                </li>#}
-
+                <li>
+                    <a href="{% url 'recibo' %}">Recibo</a>
+                </li>
                 {% if user.is_authenticated %}
                     <li>
                         <a href="{% url 'logout' %}">Cerrar Sesion</a>
@@ -56,6 +58,7 @@
                     <li>
                         <a href="{% url 'edit' %}">Editar Perfil</a>
                     </li>
+
                 {% else %}
                     <li>
                         <a href="{% url 'login' %}">Iniciar Sesion</a>
@@ -76,7 +79,7 @@
                 {#                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>#}
                 {#                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>#}
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Desplegar Menu</a>
-                <button type="button" class="btn btn-primary" onclick="javascript:void(document.body.style.fontSize='20px',
+                <button type="button" class="btn btn-primary" onclick="void(document.body.style.fontSize='20px',
                 document.getElementById('sidebar-wrapper').style.backgroundColor='yellow',
                 document.body.style.color='#000000')"> Cambiar Estilo</button>
 
