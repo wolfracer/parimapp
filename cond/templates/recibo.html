@@ -7,7 +7,7 @@
 {% block body %}
     {# // TODO: recibos personalizados #}
 
-    <embed src="{% url 'pdf' %}" width="600px" height="500px"/>
+    <embed src="{% url 'pdf' %}" type="application/pdf" width="600px" height="500px"/>
     <h1> {{ item.recibourl }}</h1>
 
 {% endblock %}

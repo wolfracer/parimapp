@@ -85,7 +85,7 @@ def recibo(request):
 # /TODO: Arreglar la vista del PDF.
 def pdf_view(request):
 	url = Recibo.objects.get(user=request.user)
-	with open(url.recibourl, 'r', encoding='utf8', errors='ignore') as pdf:
+	with open(url.recibourl, 'rb') as pdf:
 		response = HttpResponse(pdf.read(), content_type='application/pdf')
 		response['Content-Disposition'] = 'inline;filename=recibo_test.pdf'
 		return response
