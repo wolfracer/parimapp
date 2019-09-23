@@ -16,8 +16,7 @@
         <img src="{% static "cond/img/logo.jpeg" %}" alt="hostelinks logo">
     </div>
     <form id="login-form" method="post"
-          action="{% url 'login' %}">
-        {% csrf_token %}
+          action="{% url 'django.contrib.auth.views.login' %}">
         <div class="form-login">
             <h4>Login</h4>
             <li>
@@ -33,7 +32,7 @@
                 </button>
                 <input type="hidden" name="next" value="{{ next }}"/>
             </li>
-    </div>
+        </div>
     </form>
 </div>
 </body>

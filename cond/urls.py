@@ -12,5 +12,6 @@ urlpatterns = [
 	path('loop/', views.arduino_test, name='loop'),
 	path('recibo/pdf/', views.pdf_view, name='pdf'),
 	path('recibo/', views.recibo, name='recibo'),
+	path('log/', views.log, name='log'),
 
 ]

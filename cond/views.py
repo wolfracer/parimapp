@@ -82,6 +82,10 @@ def recibo(request):
 	return (render(request, 'recibo.html', args))
 
 
+def log(request):
+	return (render(request, 'login.html'))
+
+
 # /TODO: Arreglar la vista del PDF.
 def pdf_view(request):
 	url = Recibo.objects.get(user=request.user)
