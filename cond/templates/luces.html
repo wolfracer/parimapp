@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Luces{% endblock %}
+{% load static %}
+
+{% block body %}
+    <div class="site-card">
+        <div class="site-card-title">
+            <span>Modulo</span>
+        </div>
+        <div class="site-card-content">
+            <div class="modulo">
+                <div class="modulo-item">
+                    <h4>Areas Verdes</h4>
+                    <img src="https://placeimg.com/400/400/any" alt="">
+                    <input type="checkbox" id="switch1"/><label for="switch1">Toggle</label>
+                </div>
+                <div class="modulo-item">
+                    <h4>Areas Verdes</h4>
+                    <img src="https://placeimg.com/400/400/any" alt="">
+                    <input type="checkbox" id="switch2"/><label for="switch2">Toggle</label>
+                </div>
+                <div class="modulo-item">
+                    <h4>Areas Verdes</h4>
+                    <img src="https://placeimg.com/400/400/any" alt="">
+                    <input type="checkbox" id="switch3"/><label for="switch3">Toggle</label>
+                </div>
+                <div class="modulo-item">
+                    <h4>Areas Verdes</h4>
+                    <img src="https://placeimg.com/400/400/any" alt="">
+                    <input type="checkbox" id="switch4"/><label for="switch4">Toggle</label>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('#switch1').click(function () {
+                    //let status = this.value;
+                    const data = 1;
+                    $.ajax(
+                        {
+                            url: '/accounts/ajax/' + data + '/',
+                            type: 'GET',
+
+
+                            success: (function (data) {
+                                    alert(data)
+
+                                }
+
+                            )
+                        }
+                    );
+                    console.log()
+                }
+            )
+
+        </script>
+    </div>
+
+{% endblock %}

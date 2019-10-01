@@ -64,6 +64,13 @@ class Recibo(models.Model):
         return self.recibourl
 
 
+class Luces(models.Model):
+	parque = models.BooleanField()
+	mesas = models.BooleanField()
+	estacionamiento1 = models.BooleanField()
+	estacionamiento2 = models.BooleanField()
+
+
 class Arduino(models.Model):
     cadena = models.CharField(max_length=10)
 

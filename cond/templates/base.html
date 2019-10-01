@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{% static 'cond/css/main.css' %}">
 
     <script type="text/javascript" src="{% static "cond/fusioncharts/fusioncharts.js" %}"></script>
-
+    <script src="{% static "cond/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "cond/js/jquery.min.js" %}"></script>
 
 </head>
 <body>
@@ -41,10 +42,15 @@
                 <span href class="site-sidebar-label">Dashboard</span>
                 <a href="{% url 'home' %}" class="site-sidebar-item"><i class="fa fa-home"></i>Inicio</a>
                 <a href="{% url 'signup' %}" class="site-sidebar-item"><i class="fa fa-user"></i>Usuarios</a>
-                <a href="{% url 'profile' %} }" class="site-sidebar-item"><i class="fa fa-user"></i>Perfil</a>
-                <a href="{% url 'edit' %} }" class="site-sidebar-item"><i class="fa fa-user"></i>Editar Perfil</a>
+                <a href="{% url 'profile' %}" class="site-sidebar-item"><i class="fa fa-user"></i>Perfil</a>
+                <a href="{% url 'edit' %}" class="site-sidebar-item"><i class="fa fa-user"></i>Editar Perfil</a>
                 <a href="{% url 'prueba' %}" class="site-sidebar-item"><i class="fa fa-tint"></i>Tanque de Agua</a>
+                <a href="{% url 'recibo' %}" class="site-sidebar-item"><i class="fa fa-tint"></i>Recibo</a>
+                <a href="{% url 'luces' %}" class="site-sidebar-item"><i class="fa fa-tint"></i>Control de
+                    Alumbrado.</a>
                 <a href="{% url 'login' %}" class="site-sidebar-item"><i class="fa fa-user"></i>Login</a>
+                <a href="/admin" class="site-sidebar-item"><i class="fa fa-user"></i>Admin</a>
+
                 <a href="{% url 'logout' %}" class="site-sidebar-item"><i class="fa fa-sign-out"></i>Cerrar Sesion</a>
             </nav>
         </div>
@@ -66,14 +72,13 @@
     <!-- /#wrapper -->
 
     <!-- Bootstrap core JavaScript -->
-    <script src="{% static "cond/js/bootstrap.bundle.min.js" %}"></script>
-    <script src="{% static "cond/js/jquery.min.js" %}"></script>
+
 
     <!-- Menu Toggle Script -->
 
-    <script>
+{% comment %}<script>
         $('.datepicker').datepicker();
-    </script>
+    </script>{% endcomment %}
 
 </body>
 </html>

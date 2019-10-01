@@ -5,7 +5,7 @@
 from cond.forms import CustomUserCreationForm, CustomUserChangeForm
 from django.urls import reverse_lazy, reverse
 from django.views import generic
-from cond.models import User, Arduino, Recibo
+from cond.models import User, Arduino, Recibo, Luces
 import time, serial
 from django.http import HttpResponse
 # from .tasks import leer_arduino
@@ -80,6 +80,40 @@ def recibo(request):
 	item = Recibo.objects.get(user=request.user)
 	args = {'item': item}
 	return (render(request, 'recibo.html', args))
+
+
+def luces(request):
+	return (render(request, 'luces.html'))
+
+
+def control_luces(request, id):
+	resp = Luces.objects.get(pk=1)
+	switch = get_switch(id)
+	light = getattr(resp, switch)
+
+	if light:
+		setattr(resp, switch, False)
+		flag = False
+	else:
+		setattr(resp, switch, True)
+		flag = True
+	resp.save()
+
+	return HttpResponse(flag)
+
+
+switch_dict = {
+	1: 'parque',
+	2: 'mesas',
+	3: 'estacionaminto1',
+	4: 'estacionamiento2',
+
+}
+
+
+def get_switch(id):
+	return switch_dict[id]
+
 
 
 def log(request):
