@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -30,8 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-	'cond',
-	'bootstrapform',
 	'django_bootstrap_base_template',
 	'django.contrib.admin',
 	'django.contrib.auth',
@@ -40,7 +39,9 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'phonenumber_field',
-	'background_task',
+	'django_extensions',
+	'cond.apps.CondConfig',
+	'rest_framework',
 	# 'django_ajax',
 
 ]
@@ -136,5 +137,9 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 BACKGROUND_TASK_RUN_ASYNC = True
 
+REST_FRAMEWORK = {
+	'DATETIME_FORMAT': '%d-%b-%y %H:%M'
+
+}
 
 django_heroku.settings(locals())

@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}Historial tanque{% endblock %}
+{% load static %}
+<script src="{% static "cond/js/jquery.js" %}"></script>
+<script src="{% static "cond/js/datepicker.js" %}"></script>
+<link href="{% static "cond/css/datepicker.css" %}" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet">
+
+
+{% block body %}
+    <h2>Historial Tanque</h2>
+
+
+    <button id="renderBtn">
+        Render
+    </button>
+
+    <div class="container">
+        <canvas id="myChart"></canvas>
+        <h1>Date range</h1>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Date range</span>
+            </div>
+            <input type="text" placeholder="Start date" aria-label="First name" class="form-control start-date">
+            <input type="text" placeholder="End date" aria-label="Last name" class="form-control end-date">
+        </div>
+
+
+    </div>
+    <script>
+        function renderChart(data, labels) {
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Nivel del tanque',
+                        data: data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+
+                    }]
+                },
+            });
+        }
+
+
+        $("#renderBtn").click(
+            function () {
+
+
+                //data = [20000, 14000, 12000, 15000, 18000, 19000, 22000];
+                data = [];
+                labels = [];
+                //labels =  ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+
+                json = [
+                    {
+                        "time": "17-Oct-19 01:15",
+                        "volumen": 43498
+                    },
+                    {
+                        "time": "17-Oct-19 00:39",
+                        "volumen": 16148
+                    },
+                    {
+                        "time": "17-Oct-19 00:37",
+                        "volumen": 49435
+                    },
+                    {
+                        "time": "17-Oct-19 00:34",
+                        "volumen": 16949
+                    },
+                    {
+                        "time": "17-Oct-19 00:32",
+                        "volumen": 25103
+                    },
+                    {
+                        "time": "17-Oct-19 00:29",
+                        "volumen": 49074
+                    },
+                    {
+                        "time": "17-Oct-19 00:27",
+                        "volumen": 29225
+                    },
+                    {
+                        "time": "17-Oct-19 00:24",
+                        "volumen": 25671
+                    }
+                ];
+                for (i in json) {
+                    data.push(json[i].volumen);
+                    labels.push(json[i].time);
+
+
+                }
+                renderChart(data, labels);
+            }
+        );
+    </script>
+
+    <script>
+
+        $.noConflict();
+        jQuery(document).ready(function ($) {
+            $(function () {
+                var $startDate = $('.start-date');
+                var $endDate = $('.end-date');
+                $startDate.datepicker({
+                    autoHide: true,
+                });
+                $endDate.datepicker({
+                    autoHide: true,
+                    startDate: $startDate.datepicker('getDate'),
+                });
+                $startDate.on('change', function () {
+                    $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
+                });
+            });
+        });
+
+
+    </script>
+
+
+
+{% endblock %}

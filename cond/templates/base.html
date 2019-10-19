@@ -9,13 +9,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'cond/css/main.css' %}">
 
-    <script type="text/javascript" src="{% static "cond/fusioncharts/fusioncharts.js" %}"></script>
-    <script src="{% static "cond/js/bootstrap.bundle.min.js" %}"></script>
-    <script src="{% static "cond/js/jquery.min.js" %}"></script>
+
+    {% comment %}<script src="{% static "cond/js/bootstrap.bundle.min.js" %}"></script>{% endcomment %}
+    {% comment %}<script src="{% static "cond/js/jquery.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet">{% endcomment %}
+
+
+
 
 </head>
 <body>
@@ -69,12 +73,7 @@
         </div>
     </div>
 </div>
-    <!-- /#wrapper -->
 
-    <!-- Bootstrap core JavaScript -->
-
-
-    <!-- Menu Toggle Script -->
 
 {% comment %}<script>
         $('.datepicker').datepicker();

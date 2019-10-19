@@ -1,20 +1,25 @@
 # from django.shortcuts import render
 
+import json
+import serial
+import time
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
+# from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
+from django.views import generic
+from rest_framework import generics
+from rest_framework import serializers
+
 # Create your views here.
 # accounts/views.py
 from cond.forms import CustomUserCreationForm, CustomUserChangeForm
-from django.urls import reverse_lazy, reverse
-from django.views import generic
-from cond.models import User, Arduino, Recibo, Luces
-import time, serial
-from django.http import HttpResponse
 # from .tasks import leer_arduino
 from cond.fusioncharts import FusionCharts
-from django.contrib.auth.decorators import login_required
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from cond.models import User, Arduino, Recibo, Luces, Tanque
 
 
 def data(request):
@@ -84,6 +89,10 @@ def recibo(request):
 
 def luces(request):
 	return (render(request, 'luces.html'))
+
+
+def cuadro(request):
+	return (render(request, 'historial.html'))
 
 
 def control_luces(request, id):
@@ -159,3 +168,22 @@ def prueba(request):
 
 	return render(request, 'arduino.html',
 	              {'output': column2d.render()})
+
+
+class TanqueSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Tanque
+		fields = ['time', 'volumen']
+
+
+class ChartData(generics.ListAPIView):
+	authentication_classes = ()
+	permission_classes = ()
+	queryset = Tanque.objects.order_by('-id')[:8]
+	serializer_class = TanqueSerializer
+
+
+def test(request):
+	tank = Tanque.objects.all()
+
+	return HttpResponse(json.dumps([[str(i.time.strftime("%d-%b-%y %H:%M")), i.volumen] for i in tank]))

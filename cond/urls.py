@@ -15,5 +15,7 @@ urlpatterns = [
 	path('recibo/', views.recibo, name='recibo'),
 	path('log/', views.log, name='log'),
 	path('light/', views.luces, name='luces'),
+	path('test/', views.cuadro, name='test'),
+	path('test2/', views.ChartData.as_view()),
 
 ]
