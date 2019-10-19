@@ -42,57 +42,32 @@
             });
         }
 
+        function getChartData() {
+            data = [];
+            labels = [];
+
+            jQuery.ajax({
+                url: "{% url 'chart_data' %}",
+                success: function (json) {
+                    for (i in json) {
+                        data.push(json[i].volumen);
+                        labels.push(json[i].time);
+                        // TODO: arreglar orden de fechas.
+                        // TODO: ponerle litros a los numeros.
+                    }
+                    renderChart(data, labels);
+                },
+                error: function (err) {
+                    alert("Ups, algo salio mal");
+                }
+            });
+        }
+
 
         $("#renderBtn").click(
             function () {
+                getChartData();
 
-
-                //data = [20000, 14000, 12000, 15000, 18000, 19000, 22000];
-                data = [];
-                labels = [];
-                //labels =  ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-
-                json = [
-                    {
-                        "time": "17-Oct-19 01:15",
-                        "volumen": 43498
-                    },
-                    {
-                        "time": "17-Oct-19 00:39",
-                        "volumen": 16148
-                    },
-                    {
-                        "time": "17-Oct-19 00:37",
-                        "volumen": 49435
-                    },
-                    {
-                        "time": "17-Oct-19 00:34",
-                        "volumen": 16949
-                    },
-                    {
-                        "time": "17-Oct-19 00:32",
-                        "volumen": 25103
-                    },
-                    {
-                        "time": "17-Oct-19 00:29",
-                        "volumen": 49074
-                    },
-                    {
-                        "time": "17-Oct-19 00:27",
-                        "volumen": 29225
-                    },
-                    {
-                        "time": "17-Oct-19 00:24",
-                        "volumen": 25671
-                    }
-                ];
-                for (i in json) {
-                    data.push(json[i].volumen);
-                    labels.push(json[i].time);
-
-
-                }
-                renderChart(data, labels);
             }
         );
     </script>

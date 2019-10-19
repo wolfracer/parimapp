@@ -16,6 +16,6 @@ urlpatterns = [
 	path('log/', views.log, name='log'),
 	path('light/', views.luces, name='luces'),
 	path('test/', views.cuadro, name='test'),
-	path('test2/', views.ChartData.as_view()),
+	path('histotanque/', views.ChartData.as_view(), name='chart_data'),
 
 ]

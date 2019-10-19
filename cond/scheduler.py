@@ -8,7 +8,9 @@ from cond.models import Tanque
 def start():
 	scheduler = BackgroundScheduler()
 	scheduler.add_job(update_water_level, 'interval', minutes=30)
-	scheduler.start()
+
+
+# scheduler.start() //TODO: quitar el comentario
 
 
 def update_water_level():
