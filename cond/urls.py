@@ -15,7 +15,8 @@ urlpatterns = [
 	path('recibo/', views.recibo, name='recibo'),
 	path('log/', views.log, name='log'),
 	path('light/', views.luces, name='luces'),
-	path('test/', views.cuadro, name='test'),
-	path('histotanque/', views.ChartData.as_view(), name='chart_data'),
+	path('histotank/', views.cuadro, name='historico_tanque'),  # TODO: agregar al menu base
+	path('tankchart/', views.ChartData.as_view(), name='chart_data'),
+	path('test/', views.test, name='test'),
 
 ]

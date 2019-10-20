@@ -18,8 +18,11 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Date range</span>
             </div>
-            <input type="text" placeholder="Start date" aria-label="First name" class="form-control start-date">
-            <input type="text" placeholder="End date" aria-label="Last name" class="form-control end-date">
+            <input type="text" id="start_date" placeholder="Start date" aria-label="First name"
+                   class="form-control start-date">
+            <input type="text" id="end_date" placeholder="End date" aria-label="Last name"
+                   class="form-control end-date">
+            <button id="dateSubmit">Enviar</button>
         </div>
 
 
@@ -91,6 +94,58 @@
                 });
             });
         });
+
+
+    </script>
+
+    <script>
+
+        jQuery("#dateSubmit").click(
+            function () {
+                getChartRange();
+
+            }
+        );
+
+        function getChartRange() {
+            var start_date = jQuery('.start-date').val();
+            var end_date = jQuery('.end-date').val();
+            var json = {
+                start: start_date,
+                end: end_date
+            };
+
+            jQuery.ajax({
+                    url: "{% url 'test' %}",
+                    contentType: "application/json",
+                    data: JSON.stringify(json),
+                    method: "POST",
+
+                    success: function (jso) {
+                        {% comment %}for (i in jso) {
+                            data.push(jso[i].volumen);
+                            labels.push(jso[i].time);
+
+                        }
+                        renderChart(data, labels);{% endcomment %}
+                        {% comment %}for (x in jso){
+                            console.log(jso[x].start_date);
+                            console.log(jso[x].end_date);
+
+                        }{% endcomment %}
+                        console.log("Json enviado con exito");
+                        console.log(jso);
+
+                    },
+                    error: function (err) {
+                        alert("Ups, algo salio mal");
+                    }
+
+
+                }
+            );
+
+        }
 
 
     </script>

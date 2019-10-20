@@ -1,16 +1,17 @@
 # from django.shortcuts import render
 
 import json
-import serial
 import time
 
+import serial
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 from rest_framework import serializers
 
@@ -176,14 +177,20 @@ class TanqueSerializer(serializers.ModelSerializer):
 		fields = ['time', 'volumen']
 
 
+
 class ChartData(generics.ListAPIView):
 	authentication_classes = ()
 	permission_classes = ()
-	queryset = Tanque.objects.order_by('-id')[:8]
+	queryset = Tanque.objects.order_by('-time')[:8]
 	serializer_class = TanqueSerializer
 
 
+@csrf_exempt  # para evitar el eror 403 forbiden que pide token csrf en POST request.
 def test(request):
-	tank = Tanque.objects.all()
+	b = json.loads(request.body)
+	a = request.body.decode('utf8')
 
-	return HttpResponse(json.dumps([[str(i.time.strftime("%d-%b-%y %H:%M")), i.volumen] for i in tank]))
+	return JsonResponse(b)
+# tank = Tanque.objects.all()
+
+# return HttpResponse(json.dumps([[str(i.time.strftime("%d-%b-%y %H:%M")), i.volumen] for i in tank]))
