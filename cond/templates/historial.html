@@ -114,20 +114,25 @@
                 start: start_date,
                 end: end_date
             };
-
+            console.log(json);
+            console.log(JSON.stringify(json));
+            var data = [];
+            var labels = [];
             jQuery.ajax({
-                    url: "{% url 'test' %}",
-                    contentType: "application/json",
-                    data: JSON.stringify(json),
-                    method: "POST",
+                url: "{% url 'chart_data' %}",
+                contentType: "application/json",
+                data: json,
+
+
+                method: "GET",
 
                     success: function (jso) {
-                        {% comment %}for (i in jso) {
+                        for (i in jso) {
                             data.push(jso[i].volumen);
                             labels.push(jso[i].time);
 
                         }
-                        renderChart(data, labels);{% endcomment %}
+                        renderChart(data, labels);
                         {% comment %}for (x in jso){
                             console.log(jso[x].start_date);
                             console.log(jso[x].end_date);
