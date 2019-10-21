@@ -1,7 +1,6 @@
 # from django.shortcuts import render
 
 import datetime
-import json
 import time
 
 import serial
@@ -15,7 +14,6 @@ from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
-from rest_framework import serializers
 
 # Create your views here.
 # accounts/views.py
@@ -23,6 +21,7 @@ from cond.forms import CustomUserCreationForm, CustomUserChangeForm
 # from .tasks import leer_arduino
 from cond.fusioncharts import FusionCharts
 from cond.models import User, Arduino, Recibo, Luces, Tanque
+from cond.serializers import TanqueSerializer
 
 
 def data(request):
@@ -95,7 +94,11 @@ def luces(request):
 
 
 def cuadro(request):
-	return (render(request, 'historial.html'))
+	water_flow = water_supply()
+	tank = Tanque.objects.all()
+
+	args = {'water': water_flow, 'tank': tank}
+	return (render(request, 'historial.html', args))
 
 
 def control_luces(request, id):
@@ -173,10 +176,7 @@ def prueba(request):
 	              {'output': column2d.render()})
 
 
-class TanqueSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Tanque
-		fields = ['time', 'volumen']
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')  # los deecorators deben aplicarse asi para las clases
@@ -191,16 +191,48 @@ class ChartData(generics.ListAPIView):
 		start_date = datetime.datetime.strptime(yeison['start'], '%m/%d/%Y')
 		end_date = datetime.datetime.strptime(yeison['end'], '%m/%d/%Y')
 
-		queryset = Tanque.objects.filter(time__range=(start_date, end_date))
+		queryset = Tanque.objects.filter(time__range=(start_date, end_date))  # [::6]
 		return queryset
+
+
+def water_supply():
+	tank = Tanque.objects.order_by('-time')[:2]
+	a = tank[0].volumen
+	b = tank[1].volumen
+	if a >= b:
+		return True
+	else:
+		return False
+
+
+
+
+
+
 
 
 @csrf_exempt  # para evitar el eror 403 forbiden que pide token csrf en POST request.
 def test(request):
-	response = json.loads(request.body)
+	# response = json.loads(request.body)
+	tank = Tanque.objects.values('time', 'volumen')  # regresa un dict de los fields especificados.
+	for x in tank:
+		x['time'] = str(x['time'].strftime("%d-%b-%y %H:%M"))
+
+	tanks = list(tank)
+	tankss = dict(tanks)
+	count = len(tank)
+	# data = json.dumps(tank)
+	yeison = {
+		'draw': 1,
+		'recordsTotal': count,
+		'recordsFiltered': count,
+		'data': tanks,
+
+	}
+
 	# a = request.body.decode('utf8') convertido a string porque viaja como bytes.
 
-	return JsonResponse(response)
+	return JsonResponse(yeison)
 # tank = Tanque.objects.all()
 
 # return HttpResponse(json.dumps([[str(i.time.strftime("%d-%b-%y %H:%M")), i.volumen] for i in tank]))

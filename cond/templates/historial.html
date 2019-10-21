@@ -12,18 +12,45 @@
 
     <div class="container">
         <canvas id="myChart"></canvas>
-        <h1>Date range</h1>
+        <h1>Rango de fecha</h1>
 
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text">Date range</span>
+                <span class="input-group-text">Seleccione el rango de fecha al consultar historial volumen del tanque</span>
+                {% comment %}TODO: poner un cuadro con data por defecto.
+                TODO: poner un mensaje si hay o no ntrada d agua d la calle
+                 {% endcomment %}
             </div>
-            <input type="text" id="start_date" placeholder="Start date" aria-label="First name"
+            <input type="text" id="start_date" placeholder="fecha inicial" aria-label="First name"
                    class="form-control start-date">
-            <input type="text" id="end_date" placeholder="End date" aria-label="Last name"
+            <input type="text" id="end_date" placeholder="fecha final" aria-label="Last name"
                    class="form-control end-date">
+            <input type="text" id="water_supply" value="{{ water }}">
             <button id="dateSubmit">Enviar</button>
         </div>
+
+        <table id="tabla_tanque" class="display" style="width:100%">
+            <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Volumen</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in tank %}
+                <tr>
+                    <td>{{ item.volumen }}</td>
+                    <td>{{ item.time }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Fecha</th>
+                <th>Volumen</th>
+            </tr>
+            </tfoot>
+        </table>
 
 
     </div>
@@ -93,6 +120,12 @@
                     $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
                 });
             });
+            var water = $('#water_supply');
+            if (water.val() === true) {
+                water.notify("Servicio de Hidrocentro activo", "success");
+            } else {
+                water.notify("Servicio de Hidrocentro Temporalmente inactivo se recomienda racionar", "warn");
+            }
         });
 
 
@@ -153,6 +186,12 @@
         }
 
 
+    </script>
+
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('#tabla_tanque').DataTable();
+        });
     </script>
 
 
