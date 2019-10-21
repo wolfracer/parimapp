@@ -39,8 +39,8 @@
             <tbody>
             {% for item in tank %}
                 <tr>
-                    <td>{{ item.volumen }}</td>
                     <td>{{ item.time }}</td>
+                    <td>{{ item.volumen }}</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -190,7 +190,12 @@
 
     <script>
         jQuery(document).ready(function () {
-            jQuery('#tabla_tanque').DataTable();
+            jQuery('#tabla_tanque').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'pdf'
+                ]
+            });
         });
     </script>
 

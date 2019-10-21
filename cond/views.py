@@ -103,20 +103,27 @@ def cuadro(request):
 
 def control_luces(request, id):
 	resp = Luces.objects.get(pk=1)
-	switch = get_switch(id)
+	switch = get_led(id)
 	light = getattr(resp, switch)
 
 	if light:
 		setattr(resp, switch, False)
-		flag = False
+		flag = id + 'OFF'
 	else:
 		setattr(resp, switch, True)
-		flag = True
+		flag = id + 'ON'
 	resp.save()
 
 	return HttpResponse(flag)
 
 
+led_dict = {
+	'LED1': 'parque',
+	'LED2': 'mesas',
+	'LED3': 'estacionamiento1',
+	'LED4': 'estacionamiento2',
+
+}
 switch_dict = {
 	1: 'parque',
 	2: 'mesas',
@@ -124,6 +131,10 @@ switch_dict = {
 	4: 'estacionamiento2',
 
 }
+
+
+def get_led(id):
+	return led_dict[id]
 
 
 def get_switch(id):

@@ -250,7 +250,7 @@ body {
     border: none;
     max-height: 40px;
     padding: 5px 20px;
-    display: -webkit-inline-box;
+
     display: -ms-inline-flexbox;
     display: inline-flex;
     -webkit-box-pack: center;
@@ -421,11 +421,6 @@ body {
     margin-bottom: 20px;
 }
 
-.label {
-    font-weight: 500;
-    margin-bottom: 10px;
-    display: block;
-}
 
 .login {
     display: -webkit-box;
