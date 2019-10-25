@@ -69,6 +69,19 @@ class Luces(models.Model):
 	mesas = models.BooleanField()
 	estacionamiento1 = models.BooleanField()
 	estacionamiento2 = models.BooleanField()
+	responsable = models.ForeignKey(User, on_delete=models.PROTECT, default=1)
+	date = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return "Parque: {0} Mesas: {1} Parking1: {2} Parking2: {3}".format(str(self.parque), str(self.mesas),
+		                                                                   str(self.estacionamiento1),
+		                                                                   str(self.estacionamiento2))
+
+
+class RegUser(models.Model):
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.ForeignKey(User, on_delete=models.PROTECT)
+	luz = models.ForeignKey(Luces, on_delete=models.PROTECT)
 
 
 class Tanque(models.Model):

@@ -6,7 +6,7 @@ import time
 import serial
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -36,6 +36,22 @@ def data(request):
 	arduino.close()
 	response = "&value=" + str(value.cadena)
 	return HttpResponse(response)
+
+
+def writearduino(trigger):
+	arduino = serial.Serial('COM6', 9600)
+	time.sleep(2)
+
+	arduino.write(str.encode(trigger))
+
+
+# arduino.close()
+
+# response = 1
+
+# return HttpResponse(response)
+
+
 
 class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
@@ -113,6 +129,7 @@ def control_luces(request, id):
 		setattr(resp, switch, True)
 		flag = id + 'ON'
 	resp.save()
+	writearduino(flag)
 
 	return HttpResponse(flag)
 
@@ -159,6 +176,13 @@ def pdf_view(request):
 
 @login_required
 def prueba(request):
+	treshold = Tanque.objects.last()
+	if treshold.volumen < 16666:
+		warning = True
+	else:
+		warning = False
+
+
 	column2d = FusionCharts(
 		'cylinder',
 		'ex1',
@@ -182,9 +206,13 @@ def prueba(request):
 			"value": "23"
 		},
 	)
+	response = {
+		'output': column2d.render(),
+		'warning': warning
 
-	return render(request, 'arduino.html',
-	              {'output': column2d.render()})
+	}
+
+	return render(request, 'arduino.html', response)
 
 
 
@@ -224,7 +252,10 @@ def water_supply():
 
 @csrf_exempt  # para evitar el eror 403 forbiden que pide token csrf en POST request.
 def test(request):
-	# response = json.loads(request.body)
+	writearduino()
+
+	return HttpResponse("correto")
+	"""# response = json.loads(request.body)
 	tank = Tanque.objects.values('time', 'volumen')  # regresa un dict de los fields especificados.
 	for x in tank:
 		x['time'] = str(x['time'].strftime("%d-%b-%y %H:%M"))
@@ -243,7 +274,7 @@ def test(request):
 
 	# a = request.body.decode('utf8') convertido a string porque viaja como bytes.
 
-	return JsonResponse(yeison)
+	return JsonResponse(yeison)"""
 # tank = Tanque.objects.all()
 
 # return HttpResponse(json.dumps([[str(i.time.strftime("%d-%b-%y %H:%M")), i.volumen] for i in tank]))

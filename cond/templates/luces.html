@@ -15,28 +15,28 @@
                     <div class="modulo-item">
                         <h4>Areas Verdes</h4>
                         <img src="https://placeimg.com/400/400/any" alt="">
-                        <input type="checkbox" name="LED1" id="switch1"/><label for="switch1">Toggle</label>
+                        <input type="checkbox" class="light-selector" name="LED1" id="switch1"/><label for="switch1">Toggle</label>
                     </div>
                     <div class="modulo-item">
                         <h4>Areas Verdes</h4>
                         <img src="https://placeimg.com/400/400/any" alt="">
-                        <input type="checkbox" name="LED2" id="switch2"/><label for="switch2">Toggle</label>
+                        <input type="checkbox" class="light-selector" name="LED2" id="switch2"/><label for="switch2">Toggle</label>
                     </div>
                     <div class="modulo-item">
                         <h4>Areas Verdes</h4>
                         <img src="https://placeimg.com/400/400/any" alt="">
-                        <input type="checkbox" name="LED3" id="switch3"/><label for="switch3">Toggle</label>
+                        <input type="checkbox" class="light-selector" name="LED3" id="switch3"/><label for="switch3">Toggle</label>
                     </div>
                     <div class="modulo-item">
                         <h4>Areas Verdes</h4>
                         <img src="https://placeimg.com/400/400/any" alt="">
-                        <input type="checkbox" name="LED4" id="switch4"/><label for="switch4">Toggle</label>
+                        <input type="checkbox" class="light-selector" name="LED4" id="switch4"/><label for="switch4">Toggle</label>
                     </div>
                 </div>
             </form>
         </div>
         <script>
-            $('#switch1').click(function () { //TODO: poner un ready que chequee si las luces estan prendidas y lo refleje en el checkox
+            $('.light-selector').change(function () { //TODO: poner un ready que chequee si las luces estan prendidas y lo refleje en el checkox
                     //let status = this.value;
                 const data = this.name;
                     $.ajax(
