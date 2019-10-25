@@ -1,19 +1,77 @@
-{% extends 'base.html' %}
 
 
+{% load static %}
 {% block title %}Volumen Tanque Tiempo Real{% endblock %}
 
 
 {% block body %}
+    <script src="{% static "cond/js/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "cond/fusioncharts/fusioncharts.js" %}"></script>
+    <script type="text/javascript" src="{% static "cond/fusioncharts/themes/fusioncharts.theme.fint.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet">
     <h2>Prueba Arduino</h2>
     <div id="chart-1"></div>
+    <input type="submit" id="update" placeholder="actualizar">
+    <input type="text" id="tank">
+
+
     <!-- dumping JavaScript code here -->
-    {{ output|safe }}
+    <div id="chart-container"></div>
+    {% comment %}{{ output|safe }}{% endcomment %}
 
     <input type="hidden" id="warning" value="{{ warning }}">
-    
+    <input type="hidden" id="val" value="{{ val }}">
+    <div id="warn-container"></div>
+
+    <canvas id="myChart" width="400" height="400"></canvas>
 
     <script>
+        var ctx = document.getElementById('myChart');
+        var a = $("#val").val();
+        $("#update").click(function () {
+                var array = [$("#val").val()];
+                var myBarChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: array,
+                    label: "volumen"
+                });
+
+            }
+        );
+
+        const dataSource = {
+            chart: {
+                caption: "Indicador Nivel de Agua",
+                lowerlimit: "0",
+                upperlimit: "27000",
+                lowerlimitdisplay: "Vacio",
+                upperlimitdisplay: "Lleno",
+                numbersuffix: " litros",
+                cylfillcolor: "#5D62B5",
+                plottooltext: "Litros: <b>$dataValue</b>",
+                cylfillhoveralpha: "85",
+                theme: "fusion"
+            },
+            value: a
+        };
+
+        FusionCharts.ready(function () {
+            var myChart = new FusionCharts({
+                type: "cylinder",
+                renderAt: "chart-container",
+                width: "100%",
+                height: "100%",
+                dataFormat: "json",
+                dataSource
+            }).render();
+        });
+
+
+    </script>
+
+
+    {% comment %}<script>
         jQuery(document).ready(function ($) {
             var warn = $('#warning').val();
             if (warn) {
@@ -23,10 +81,20 @@
                     text: 'el nivel del tanque esta por debajo del 30%, se recomienda racionar'
                 });
 
+                var para = document.createElement("h2");
+                para.style.color= "#FF0000";
+var node = document.createTextNode("Nivel de tanque Critico! Se recomienda racionar");
+para.appendChild(node);
+
+var element = document.getElementById("warn-container");
+element.appendChild(para);
+
             }
 
+
+
         });
-    </script>
+    </script>{% endcomment %}
 
 
 {% endblock %}

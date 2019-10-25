@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	'django_extensions',
 	'cond.apps.CondConfig',
 	'rest_framework',
+	'corsheaders',
 	# 'django_ajax',
 
 ]
@@ -54,7 +55,10 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'corsheaders.middleware.CorsMiddleware',
 ]
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 ROOT_URLCONF = 'parimapp.urls'
 

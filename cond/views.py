@@ -20,10 +20,11 @@ from rest_framework import generics
 from cond.forms import CustomUserCreationForm, CustomUserChangeForm
 # from .tasks import leer_arduino
 from cond.fusioncharts import FusionCharts
-from cond.models import User, Arduino, Recibo, Luces, Tanque
+from cond.models import User, Arduino, Recibo, Luces, Tanque, Porton
 from cond.serializers import TanqueSerializer
 
 
+@csrf_exempt
 def data(request):
 	arduino = serial.Serial('COM6', 9600)
 	time.sleep(2)
@@ -34,8 +35,24 @@ def data(request):
 	value.cadena = lectura_arduino
 	value.save()
 	arduino.close()
-	response = "&value=" + str(value.cadena)
+	response = int(value.cadena)
 	return HttpResponse(response)
+
+
+def arduinoread():
+	response = 0
+	arduino = serial.Serial('COM6', 9600)
+	time.sleep(2)
+	value = Arduino.objects.get(pk=1)
+	response = value.cadena
+
+	lectura_arduino = float(arduino.readline().strip()) * 1000
+
+	value.cadena = lectura_arduino
+	value.save()
+	arduino.close()
+	response = int(value.cadena)
+	return response
 
 
 def writearduino(trigger):
@@ -182,7 +199,7 @@ def prueba(request):
 	else:
 		warning = False
 
-
+	value = "10000"
 	column2d = FusionCharts(
 		'cylinder',
 		'ex1',
@@ -198,19 +215,21 @@ def prueba(request):
 				"numbersuffix": "Litros",
 				"plottooltext": "Litros: <b>$dataValue</b>",
 				"theme": "fusion",
-				"dataStreamUrl": "http://localhost:8000/accounts/data/",
 				"refreshInterval": "5",
 				"refreshInstantly": "2",
 				"cylFillColor": "#5188df"
 			},
-			"value": "23"
+			"value": value
 		},
 	)
+	val = arduinoread()
 	response = {
 		'output': column2d.render(),
-		'warning': warning
+		'warning': warning,
+		'val': val
 
 	}
+
 
 	return render(request, 'arduino.html', response)
 
@@ -242,6 +261,20 @@ def water_supply():
 		return True
 	else:
 		return False
+
+
+def porton(request):
+	puerta = Porton.objects.create(
+		user=request.user
+	)
+
+	return render(request, 'porton.html')
+
+
+def portonview(request):
+	return render(request, 'porton.html')
+
+
 
 
 

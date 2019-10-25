@@ -18,5 +18,7 @@ urlpatterns = [
 	path('histotank/', views.cuadro, name='historico_tanque'),  # TODO: agregar al menu base
 	path('tankchart/', views.ChartData.as_view(), name='chart_data'),
 	path('test/', views.test, name='test'),
+	path('portonview/', views.portonview, name='porton_view'),
+	path('portonview/open/', views.porton, name='porton'),
 
 ]
