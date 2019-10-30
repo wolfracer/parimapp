@@ -1,0 +1,6 @@
+/.vscode
+ra.tx
+ra.txt
+/cond/__pycache__
+/cond/migrations/__pycache__
+/parimapp/__pycache__

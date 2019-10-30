@@ -57,32 +57,25 @@
                 <a href="{% url 'home' %}" class="site-sidebar-item"><i class="fa fa-home"></i>Inicio</a>
                 {% if user.is_authenticated %}
 
-                    <a href="{% url 'signup' %}" class="site-sidebar-item"><i
-                            class="fa fa-address-card"></i>Usuarios</a>
-                <a href="{% url 'profile' %}" class="site-sidebar-item"><i class="fa fa-user"></i>Perfil</a>
-                    <a href="{% url 'edit' %}" class="site-sidebar-item"><i class="fas fa-user-edit"></i>Editar
-                        Perfil</a>
-                <a href="{% url 'prueba' %}" class="site-sidebar-item"><i class="fa fa-tint"></i>Tanque de Agua</a>
-                    <a href="{% url 'recibo' %}" class="site-sidebar-item"><i class="fas fa-file-invoice"></i>Recibo</a>
+                    <a href="{% url 'signup' %}" class="site-sidebar-item"><i class="fa fa-address-card"></i>Usuarios</a>
+                	<a href="{% url 'profile' %}" class="site-sidebar-item"><i class="fa fa-user"></i>Perfil</a>
+                    <a href="{% url 'edit' %}" class="site-sidebar-item"><i class="fas fa-user-edit"></i>Editar Perfil</a>
+                	<a href="{% url 'prueba' %}" class="site-sidebar-item"><i class="fa fa-tint"></i>Tanque de Agua</a>
+										<a href="{% url 'recibo' %}" class="site-sidebar-item"><i class="fas fa-file-invoice"></i>Recibo</a>
+										
                     {% if request.user|has_group:"Personal" %}
-                        <a href="{% url 'luces' %}" class="site-sidebar-item"><i class="fa fa-lightbulb"></i>Control de
-                    Alumbrado.</a>
-                        <a href="{% url 'historico_tanque' %}" class="site-sidebar-item"><i
-                                class="fa fa-chart-area"></i>Historico Tanque</a>
-                        {% comment %}TODO: arreglar iconos{% endcomment %}
-                        <a href="{% url 'vigilancia' %}" class="site-sidebar-item"><i
-                                class="fa fa-chart-area"></i>Vigilancia.</a>
-                        <a href="{% url 'porton_view' %}" class="site-sidebar-item"><i
-                                class="fa fa-chart-area"></i>Apertura Porton.</a>
+                        <a href="{% url 'luces' %}" class="site-sidebar-item"><i class="fa fa-lightbulb"></i>Control de Alumbrado.</a>
+                        <a href="{% url 'historico_tanque' %}" class="site-sidebar-item"><i class="fa fa-chart-area"></i>Historico Tanque</a>
+                        <a href="{% url 'vigilancia' %}" class="site-sidebar-item"><i class="fa fa-red-eye"></i>Vigilancia.</a>
+                        <a href="{% url 'porton_view' %}" class="site-sidebar-item"><i class="fa fa-car"></i>Apertura Porton.</a>
                     {% endif %}
 
                     <a href="/admin" class="site-sidebar-item"><i class="fas fa-users-cog"></i>Admin</a>
 
-                <a href="{% url 'logout' %}" class="site-sidebar-item"><i class="fa fa-sign-out"></i>Cerrar Sesion</a>
+                	<a href="{% url 'logout' %}" class="site-sidebar-item"><i class="fa fa-sign-out"></i>Cerrar Sesion</a>
                 {% else %}
                     <a href="{% url 'signup' %}" class="site-sidebar-item"><i class="fa fa-user-plus"></i>Usuarios</a>
                     <a href="{% url 'login' %}" class="site-sidebar-item"><i class="fa fa-user"></i>Login</a>
-
                 {% endif %}
             </nav>
         </div>
