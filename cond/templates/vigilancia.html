@@ -14,7 +14,7 @@
             border: 10px #333 solid;
         }
 
-        #videoElement {
+        #videoElement1, #videoElement2, #videoElement3 {
             width: 500px;
             height: 375px;
             background-color: #666;
@@ -23,32 +23,45 @@
 
 
     <div id="container">
-        <video autoplay="true" id="videoElement">
+        <video autoplay="true" id="videoElement1">
 
         </video>
         <h1> Estacionamiento.</h1>
     </div>
 
     <div id="container">
-        <video autoplay="true" id="videoElement">
+        <video autoplay="true" id="videoElement2">
 
         </video>
         <h1> Estacionamiento.</h1>
     </div>
     <div id="container">
-        <video autoplay="true" id="videoElement">
+        <video autoplay="true" id="videoElement3">
 
         </video>
         <h1> Estacionamiento.</h1>
     </div>
 
     <script>
-        var video = document.querySelector("#videoElement");
+        // TODO: arreglar estilo y compactar el JS.
+        var video = document.querySelector("#videoElement1");
 
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({video: true})
                 .then(function (stream) {
                     video.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                });
+        }
+
+        var video2 = document.querySelector("#videoElement2");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(function (stream) {
+                    video2.srcObject = stream;
                 })
                 .catch(function (err0r) {
                     console.log("Something went wrong!");

@@ -69,6 +69,11 @@
                     Alumbrado.</a>
                         <a href="{% url 'historico_tanque' %}" class="site-sidebar-item"><i
                                 class="fa fa-chart-area"></i>Historico Tanque</a>
+                        {% comment %}TODO: arreglar iconos{% endcomment %}
+                        <a href="{% url 'vigilancia' %}" class="site-sidebar-item"><i
+                                class="fa fa-chart-area"></i>Vigilancia.</a>
+                        <a href="{% url 'porton_view' %}" class="site-sidebar-item"><i
+                                class="fa fa-chart-area"></i>Apertura Porton.</a>
                     {% endif %}
 
                     <a href="/admin" class="site-sidebar-item"><i class="fas fa-users-cog"></i>Admin</a>
