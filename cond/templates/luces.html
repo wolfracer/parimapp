@@ -5,34 +5,64 @@
 {% load static %}
 
 {% block body %}
+<style>
+    .container {
+        height:100%;
+        width:100%;
+        margin: 0 auto;
+    }
+    
+    .modulo {
+      display: flex;
+      flex-wrap:wrap;
+      margin:-10px 0 0 -10px;
+    }
+
+    .modulo-item {
+      margin:10px 0 0 10px;
+      height:100%;    
+      width: calc(100% * (1/3) - 10px - 1px);
+      text-align: center;
+    }
+    .spacing {
+      margin-bottom: 10px;
+    }
+
+</style>
     <div class="site-card">
         <div class="site-card-title">
             <span>Modulo</span>
         </div>
         <div class="site-card-content">
             <form id="luces_form">
+              <div class="container">
                 <div class="modulo">
                     <div class="modulo-item">
                         <h4>Areas Verdes</h4>
-                        <img src="https://placeimg.com/400/400/any" alt="">
-                        <input type="checkbox" class="light-selector" name="LED1" id="switch1"/><label for="switch1">Toggle</label>
+                        <img src="https://placeimg.com/400/400/any" alt="" class='spacing'>
+                        <button type="button" class="btn btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
+                            <div class="handle"></div>
+                          </button>
+                        <!-- <input type="checkbox" class="light-selector" name="LED1" id="switch1"/><label for="switch1">Toggle</label> -->
                     </div>
                     <div class="modulo-item">
                         <h4>Areas Verdes</h4>
-                        <img src="https://placeimg.com/400/400/any" alt="">
+                        <img src="https://placeimg.com/400/400/any" alt="" class='spacing'>
                         <input type="checkbox" class="light-selector" name="LED2" id="switch2"/><label for="switch2">Toggle</label>
                     </div>
                     <div class="modulo-item">
                         <h4>Areas Verdes</h4>
-                        <img src="https://placeimg.com/400/400/any" alt="">
+                        <img src="https://placeimg.com/400/400/any" alt="" class='spacing'>
                         <input type="checkbox" class="light-selector" name="LED3" id="switch3"/><label for="switch3">Toggle</label>
                     </div>
                     <div class="modulo-item">
                         <h4>Areas Verdes</h4>
-                        <img src="https://placeimg.com/400/400/any" alt="">
+                        <img src="https://placeimg.com/400/400/any" alt="" class='spacing'>
                         <input type="checkbox" class="light-selector" name="LED4" id="switch4"/><label for="switch4">Toggle</label>
                     </div>
                 </div>
+              </div>
+                
             </form>
         </div>
         <script>

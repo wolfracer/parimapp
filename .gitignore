@@ -1,6 +1,7 @@
 /.vscode
 ra.tx
 ra.txt
-/cond/__pycache__
-/cond/migrations/__pycache__
-/parimapp/__pycache__
+/cond/__pycache__/*.pyc
+/cond/migrations/__pycache__/*.pyc
+/cond/templatetags/__pycache__/*.pyc
+/parimapp/__pycache__/*.pyc

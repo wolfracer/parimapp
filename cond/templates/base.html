@@ -62,7 +62,7 @@
                     <a href="{% url 'edit' %}" class="site-sidebar-item"><i class="fas fa-user-edit"></i>Editar Perfil</a>
                 	<a href="{% url 'prueba' %}" class="site-sidebar-item"><i class="fa fa-tint"></i>Tanque de Agua</a>
 										<a href="{% url 'recibo' %}" class="site-sidebar-item"><i class="fas fa-file-invoice"></i>Recibo</a>
-										
+										<a href="{% url 'luces' %}" class="site-sidebar-item"><i class="fa fa-lightbulb"></i>Control de Alumbrado.</a>
                     {% if request.user|has_group:"Personal" %}
                         <a href="{% url 'luces' %}" class="site-sidebar-item"><i class="fa fa-lightbulb"></i>Control de Alumbrado.</a>
                         <a href="{% url 'historico_tanque' %}" class="site-sidebar-item"><i class="fa fa-chart-area"></i>Historico Tanque</a>
