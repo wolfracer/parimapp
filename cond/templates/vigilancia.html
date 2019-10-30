@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Vigilancia{% endblock %}
+
+
+{% block body %}
+
+    <style>
+        #container {
+            margin: 0px auto;
+            width: 33%;
+            height: 33%;
+            border: 10px #333 solid;
+        }
+
+        #videoElement {
+            width: 500px;
+            height: 375px;
+            background-color: #666;
+        }
+    </style>
+
+
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+
+        </video>
+        <h1> Estacionamiento.</h1>
+    </div>
+
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+
+        </video>
+        <h1> Estacionamiento.</h1>
+    </div>
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+
+        </video>
+        <h1> Estacionamiento.</h1>
+    </div>
+
+    <script>
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                });
+        }
+    </script>
+
+
+{% endblock %}

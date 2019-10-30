@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 
 import datetime
+import random
 import time
 
 import serial
@@ -26,13 +27,8 @@ from cond.serializers import TanqueSerializer
 
 @csrf_exempt
 def data(request):
-	arduino = serial.Serial('COM6', 9600)
-	time.sleep(2)
-
-	lectura_arduino = float(arduino.readline().strip()) * 1000
 	value = Arduino.objects.get(pk=1)
-
-	value.cadena = lectura_arduino
+	value.cadena = arduinoread()
 	value.save()
 	arduino.close()
 	response = int(value.cadena)
@@ -40,26 +36,27 @@ def data(request):
 
 
 def arduinoread():
-	response = 0
-	arduino = serial.Serial('COM6', 9600)
-	time.sleep(2)
-	value = Arduino.objects.get(pk=1)
-	response = value.cadena
+	try:
+		arduino = serial.Serial('COM6', 9600)
+		time.sleep(2)
+		lectura_arduino = float(arduino.readline().strip()) * 1000
+	except:
+		lectura_arduino = random.randint(1, 50000)
 
-	lectura_arduino = float(arduino.readline().strip()) * 1000
-
-	value.cadena = lectura_arduino
-	value.save()
-	arduino.close()
-	response = int(value.cadena)
-	return response
+	return lectura_arduino
 
 
 def writearduino(trigger):
-	arduino = serial.Serial('COM6', 9600)
-	time.sleep(2)
+	try:
+		arduino = serial.Serial('COM6', 9600)
+		time.sleep(2)
+		arduino.write(str.encode(trigger))
+	except:
+		return "Error al escribir al arduino"
 
-	arduino.write(str.encode(trigger))
+
+
+
 
 
 # arduino.close()
@@ -275,12 +272,8 @@ def portonview(request):
 	return render(request, 'porton.html')
 
 
-
-
-
-
-
-
+def vigilancia(request):
+	return render(request, 'vigilancia.html')
 
 
 @csrf_exempt  # para evitar el eror 403 forbiden que pide token csrf en POST request.

@@ -20,5 +20,6 @@ urlpatterns = [
 	path('test/', views.test, name='test'),
 	path('portonview/', views.portonview, name='porton_view'),
 	path('portonview/open/', views.porton, name='porton'),
+	path('vigilancia/', views.vigilancia, name='vigilancia'),
 
 ]
