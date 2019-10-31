@@ -22,8 +22,8 @@ from rest_framework import generics
 from cond.forms import CustomUserCreationForm, CustomUserChangeForm
 # from .tasks import leer_arduino
 from cond.fusioncharts import FusionCharts
-from cond.models import User, Arduino, Recibo, Luces, Tanque, Porton, RiegoParam
-from cond.serializers import TanqueSerializer
+from cond.models import User, Arduino, Recibo, Luces, Tanque, Porton, RiegoParam, Bombillo
+from cond.serializers import TanqueSerializer, BombilloSerializer
 
 
 @csrf_exempt
@@ -299,6 +299,18 @@ def riegoparam(request):
 	# riego.save()
 	# TODO: mandar senal al Arduino.
 	return render(request, 'riego.html', response)
+
+
+def bombillo(request):
+	return render(request, 'bombillo.html')
+
+
+class BombillosView(generics.ListAPIView):
+	authentication_classes = ()
+	permission_classes = ()
+	queryset = Bombillo.objects.all()
+	serializer_class = BombilloSerializer
+
 
 
 @csrf_exempt  # para evitar el eror 403 forbiden que pide token csrf en POST request.

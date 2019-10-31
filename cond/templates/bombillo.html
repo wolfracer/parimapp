@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Status Bombillos{% endblock %}
+
+{% block body %}
+    <h2>Riego</h2>
+
+
+    {% comment %}<button id="renderBtn">
+        Render
+    </button>{% endcomment %}
+
+    <div class="container">
+
+        <h1>Estacionamiento
+            1</h1> {% comment %}TODO: ruta /bombillos/data trae json del estatus de cada bombillo arreglar{% endcomment %}
+        {% comment %}TODO: probar con Arduino.{% endcomment %}
+
+        <input type="checkbox" id="bombillo1">
+        <input type="checkbox" id="bombillo2">
+
+        <h1> Estacionamiento 2</h1>
+
+        <input type="checkbox" id="bombillo3">
+        <input type="checkbox" id="bombillo4">
+
+        <h1>Parque</h1>
+
+
+        <input type="checkbox" id="bombillo5">
+        <input type="checkbox" id="bombillo6">
+
+        <h1>Mesas</h1>
+
+        <input type="checkbox" id="bombillo7">
+        <input type="checkbox" id="bombillo8">
+
+
+    </div>
+
+
+
+{% endblock %}

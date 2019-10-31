@@ -23,5 +23,7 @@ urlpatterns = [
 	path('vigilancia/', views.vigilancia, name='vigilancia'),
 	path('riego/', views.riego, name='riego'),
 	path('riego/param/', views.riegoparam, name='riego_param'),
+	path('bombillo/data/', views.BombillosView.as_view(), name='bombillo-data'),
+	path('bombillo/', views.bombillo, name='bombillo')
 
 ]

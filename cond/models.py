@@ -120,3 +120,17 @@ class RiegoParam(models.Model):
 	end_date = models.DateTimeField()
 	water_time = models.IntegerField(blank=True)
 	is_active = models.BooleanField(blank=True)
+
+
+CATEGORIA_CHOICES = (
+	('a', 'estacionamiento 1'),
+	('b', 'estacionamiento 2'),
+	('c', 'parque'),
+	('d', 'mesas'),
+
+)
+
+
+class Bombillo(models.Model):
+	categoria = models.CharField(max_length=1, choices=CATEGORIA_CHOICES)
+	status = models.BooleanField()
