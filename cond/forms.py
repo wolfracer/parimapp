@@ -1,9 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm
 
 from cond.models import User
-from bootstrap_datepicker.widgets import DatePicker
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -39,11 +38,6 @@ class CustomUserChangeForm(UserChangeForm):
 
 		)
 		widgets = {
-			'fecha_nacimiento': DatePicker(options={
-				"format": "mm/dd/yyyy",
-				"autoclose": True
-			}
-			),
 			'password': forms.HiddenInput,
 		}
 
