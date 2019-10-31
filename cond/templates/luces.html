@@ -139,14 +139,18 @@
         </div>
         <script>
 					$('.btn-toggle').click((e) => {
-						e.target.classList.toggle('active');
-						$.ajax({
+						if(e.target.name) {
+							e.target.classList.toggle('active');
+							$.ajax({
 							url: '/accounts/ajax/' + e.target.name + '/',
 							type: 'GET',
 							success: (function (data) {
 								alert(data);
 							})
 						});
+						}
+						
+						
 					});
           
 
