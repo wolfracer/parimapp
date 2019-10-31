@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 
 import datetime
+import json
 import random
 import time
 
@@ -21,7 +22,7 @@ from rest_framework import generics
 from cond.forms import CustomUserCreationForm, CustomUserChangeForm
 # from .tasks import leer_arduino
 from cond.fusioncharts import FusionCharts
-from cond.models import User, Arduino, Recibo, Luces, Tanque, Porton
+from cond.models import User, Arduino, Recibo, Luces, Tanque, Porton, RiegoParam
 from cond.serializers import TanqueSerializer
 
 
@@ -274,6 +275,30 @@ def portonview(request):
 
 def vigilancia(request):
 	return render(request, 'vigilancia.html')
+
+
+def riego(request):
+	param = RiegoParam.objects.first()
+	response = {
+		'param': param
+	}
+	return render(request, 'riego.html', response)
+
+
+@csrf_exempt
+def riegoparam(request):
+	param = RiegoParam.objects.first()
+	jsondata = json.loads(request.body)
+	param.start_date = datetime.datetime.strptime(jsondata['start_date'], '%m/%d/%Y')
+	param.end_date = datetime.datetime.strptime(jsondata['end_date'], '%m/%d/%Y')
+	# param.is_active=jsondata['is_active'] TODO: Json no retorna todos los valores que deberia.
+	# param.water_time=jsondata['water_time']
+	param.save()
+	# riego= Riego.objects.create()
+	# riego.user=request.user
+	# riego.save()
+	# TODO: mandar senal al Arduino.
+	return render(request, 'riego.html', response)
 
 
 @csrf_exempt  # para evitar el eror 403 forbiden que pide token csrf en POST request.

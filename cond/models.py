@@ -108,3 +108,15 @@ class Arduino(models.Model):
 class Porton(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
+class Riego(models.Model):
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
+class RiegoParam(models.Model):
+	start_date = models.DateTimeField()
+	end_date = models.DateTimeField()
+	water_time = models.IntegerField(blank=True)
+	is_active = models.BooleanField(blank=True)

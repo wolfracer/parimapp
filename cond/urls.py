@@ -21,5 +21,7 @@ urlpatterns = [
 	path('portonview/', views.portonview, name='porton_view'),
 	path('portonview/open/', views.porton, name='porton'),
 	path('vigilancia/', views.vigilancia, name='vigilancia'),
+	path('riego/', views.riego, name='riego'),
+	path('riego/param/', views.riegoparam, name='riego_param'),
 
 ]

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Riego{% endblock %}
+
+{% block body %}
+    <h2>Riego</h2>
+
+
+    {% comment %}<button id="renderBtn">
+        Render
+    </button>{% endcomment %}
+
+    <div class="container">
+
+        <h1>Rango de fecha</h1>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Seleccione el rango de fecha para programar sistema de riego</span>
+
+            </div>
+            <input type="text" id="start_date" placeholder="fecha inicial" aria-label="First name"
+                   class="form-control start-date">
+            <input type="text" id="end_date" placeholder="fecha final" aria-label="Last name"
+                   class="form-control end-date">
+            <input type="text" id="water_time" placeholder="Tiempo de regado en minutos"
+                   class="form-control water-time">
+            <input type="checkbox" id="is_active" class="form-control is-active">
+
+            <button id="riegoSubmit">Enviar</button>
+        </div>
+
+
+    </div>
+
+    <script>
+
+        $.noConflict();
+        jQuery(document).ready(function ($) {
+            $(function () {
+                var $startDate = $('.start-date');
+                var $endDate = $('.end-date');
+                $startDate.datepicker({
+                    autoHide: true,
+                });
+                $endDate.datepicker({
+                    autoHide: true,
+                    startDate: $startDate.datepicker('getDate'),
+                });
+                $startDate.on('change', function () {
+                    $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
+                });
+            });
+
+
+        });
+
+
+    </script>
+
+    <script>
+
+        jQuery("#riegoSubmit").click(
+            function () {
+                setParams();
+
+            }
+        );
+
+        function setParams() {
+            var start_date = jQuery('.start-date').val();
+            var end_date = jQuery('.end-date').val();
+            var is_active = jQuery('.is_active').checked;
+            var water_time = jQuery('.water_time').val();
+            var json = {
+                start_date: start_date,
+                end_date: end_date,
+                water_time: water_time,
+                is_active: is_active,
+
+            };
+
+            jQuery.ajax({
+                    url: "{% url 'riego_param' %}",
+                    contentType: "application/json",
+                    type: "json",
+                    data: JSON.stringify(json),
+
+
+                    method: "POST",
+
+                    success: function (jso) {
+                        alert('Sistema de riego programado correctamente');
+
+                    },
+                    error: function (err) {
+                        alert("Ups, algo salio mal");
+                    }
+
+
+                }
+            );
+
+        }
+
+
+    </script>
+
+
+
+
+
+{% endblock %}

@@ -6,9 +6,7 @@
     <h2>Historial Tanque</h2>
 
 
-    <button id="renderBtn">
-        Render
-    </button>
+
 
     <div class="container">
         <canvas id="myChart"></canvas>
@@ -72,34 +70,7 @@
             });
         }
 
-        function getChartData() {
-            data = [];
-            labels = [];
 
-            jQuery.ajax({
-                url: "{% url 'chart_data' %}",
-                success: function (json) {
-                    for (i in json) {
-                        data.push(json[i].volumen);
-                        labels.push(json[i].time);
-                        // TODO: arreglar orden de fechas.
-                        // TODO: ponerle litros a los numeros.
-                    }
-                    renderChart(data, labels);
-                },
-                error: function (err) {
-                    alert("Ups, algo salio mal");
-                }
-            });
-        }
-
-
-        $("#renderBtn").click(
-            function () {
-                getChartData();
-
-            }
-        );
     </script>
 
     <script>
@@ -147,8 +118,7 @@
                 start: start_date,
                 end: end_date
             };
-            console.log(json);
-            console.log(JSON.stringify(json));
+
             var data = [];
             var labels = [];
             jQuery.ajax({
