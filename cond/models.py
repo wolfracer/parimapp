@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 # from django.contrib.auth import get_user_model donde se use user, se obtiene con get_user_model
-from phonenumber_field.modelfields import PhoneNumberField
+
 
 
 # Create your models here.
@@ -49,7 +49,7 @@ class User(AbstractUser):
     apellidos = models.CharField(max_length=30)
     email = models.EmailField()"""
 	cedula = models.IntegerField(null=True)
-	telefono = PhoneNumberField(null=True)
+	telefono = models.CharField(max_length=20, null=True, blank=True)
 	# user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 	# modelo base user de django, tiene nombres correo etc
 	apartament = models.ForeignKey(Apartment, on_delete=models.CASCADE, null=True)
