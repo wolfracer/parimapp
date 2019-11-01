@@ -1,6 +1,6 @@
 <!-- templates/signup.html -->
 {% extends 'base.html' %}
-{% load bootstrap %}
+
 
 {% block title %}Registro{% endblock %}
 
@@ -9,7 +9,7 @@
   <form role="form" method="post">
     {% csrf_token %}
       <div class="input-group date" data-provide="datepicker">
-          {{ form|bootstrap }}
+          {{ form }}
           <div class="input-group-addon">
 
           </div>
