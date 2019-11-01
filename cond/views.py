@@ -265,6 +265,7 @@ def porton(request):
 	puerta = Porton.objects.create(
 		user=request.user
 	)
+	a = writearduino('LED1ON')
 
 	return render(request, 'porton.html')
 
@@ -298,6 +299,7 @@ def riegoparam(request):
 	# riego.user=request.user
 	# riego.save()
 	# TODO: mandar senal al Arduino.
+	a = writearduino('LED1ON')
 	return render(request, 'riego.html', response)
 
 
